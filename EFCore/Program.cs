@@ -9,7 +9,7 @@ namespace EFCore
         static void Main(string[] args)
         {
             using ApplicationDbContext context = new ApplicationDbContext();
-
+             
             #region Topic
             //var topic= new Topic() { Name="programming"};
             //context.Topics.Add(topic);
