@@ -27,7 +27,7 @@ namespace EFCore.Data
                 k.Course_Id
             });
         }
-        public DbSet<Course> Course { get; set; }
+        public DbSet<Course> Courses { get; set; }
         public DbSet<Course_inst> Course_inst { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Instructor> Instructors { get; set; }

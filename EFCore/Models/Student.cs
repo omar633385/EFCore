@@ -8,11 +8,11 @@ namespace EFCore.Models
 {
     internal class Student
     {
-        public int Id { get; set; }
-        public string Fname { get; set; }
-        public string Lname { get; set; }
-        public string Address { get; set; }
-        public int Age { get; set; }
-        public int Dept_Id { get; set; }
+        public  int Id { get; set; }
+        public required string Fname { get; set; }
+        public required string Lname { get; set; }
+        public required string Address { get; set; }
+        public required int Age { get; set; }
+        public required int Dept_Id { get; set; }
     }
 }

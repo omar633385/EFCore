@@ -9,11 +9,11 @@ namespace EFCore.Models
     internal class Instructor
     {
         public int Id { get; set; }
-        public string  Name{ get; set; }
-        public double Bonus { get; set; }
-        public double Salary { get; set; }
-        public string Address { get; set; }
-        public double HourRate { get; set; }
-        public int Dept_Id { get; set; }
+        public required string  Name{ get; set; }
+        public required double Bonus { get; set; }
+        public required double Salary { get; set; }
+        public required string Address { get; set; }
+        public required double HourRate { get; set; }
+        public required int Dept_Id { get; set; }
     }
 }
