@@ -18,4 +18,10 @@
     <ProjectReference Include="..\EFCore\EFCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Common">
+      <HintPath>..\Common\bin\Debug\net8.0\Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

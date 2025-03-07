@@ -12,6 +12,7 @@ namespace Demo.Data.models
     //There are 4 ways for mapping from Code To Database
     //1.By Convention(Default Behavoir)
     //2.Data Annotation(set of Attributes used for Validation) Not All Method reflects to database but it is used more between front-end and backend[Viewmodels,DTOs]
+    //3.Fluent Api =>gives more control than data Annotation  dbContext--OnModelCreating
 
 
     #region ByConvention
