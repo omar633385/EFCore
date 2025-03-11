@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,7 @@ namespace EFCore.Data
                 k.Inst_Id,
                 k.Course_Id
             });
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Course_inst> Course_inst { get; set; }

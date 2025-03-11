@@ -38,6 +38,8 @@ namespace Demo.configs
 
             d.Ignore(d => d.Description); //like [NotMapped]
 
+
+
         }
     }
 }

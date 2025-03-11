@@ -12,5 +12,6 @@ namespace Common
         public string DeptName { get; set; }
         public DateTime CreationDate { get; set; }
         public string Description { get; set; }
+
     }
 }

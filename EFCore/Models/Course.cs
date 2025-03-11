@@ -11,6 +11,7 @@ namespace EFCore.Models
         public int Id { get; set; }
         public required string Duration { get; set; }
         public required string Name { get; set; }
+        public Topic Topic { get; set; }
         public required int Top_Id { get; set; }
     }
 }

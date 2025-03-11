@@ -13,6 +13,9 @@ namespace EFCore.Models
         public required string Lname { get; set; }
         public required string Address { get; set; }
         public required int Age { get; set; }
-        public required int Dept_Id { get; set; }
+
+        public Department Department { get; set; } //[ONE]
+        
+        public int Dept_Id { get; set; }
     }
 }
