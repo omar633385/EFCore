@@ -14,8 +14,7 @@ namespace Demo04.Data
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-TKKIPFC;Initial Catalog=Company02;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
-
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Data Source=DESKTOP-TKKIPFC;Initial Catalog=Company02;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,7 +25,10 @@ namespace Demo04.Data
 
 
             modelBuilder.Entity<PartTimeEmployee>().HasBaseType<EmployeeContainer>();
-           
+
+            //to tell ef core that EmployeeDepartmentView is a view not table
+            modelBuilder.Entity<EmployeeDepartment>().ToView("EmployeeDepartmentView");
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -36,7 +38,7 @@ namespace Demo04.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
 
-
+        public DbSet<EmployeeDepartment> EmployeeDepartments { get; set; }
 
         #region TPCC
         //public DbSet<FullTimeEmployee> FullTimeEmployees { get; set; }

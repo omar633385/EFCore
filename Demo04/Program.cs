@@ -26,14 +26,14 @@ namespace Demo04
             //dbContext.SaveChanges(); 
             #endregion
 
-            foreach (var full in dbContext.EmployeeContainers.OfType<FullTimeEmployee>())
-            {
-                Console.WriteLine($"Name:{full.Name} Salary:{full.Salary}");
-            }
-            foreach (var part in dbContext.EmployeeContainers.OfType<PartTimeEmployee>())
-            {
-                Console.WriteLine($"Name:{part.Name} Salary:{part.HourRate * part.CountOfHour}");
-            }
+            //foreach (var full in dbContext.EmployeeContainers.OfType<FullTimeEmployee>())
+            //{
+            //    Console.WriteLine($"Name:{full.Name} Salary:{full.Salary}");
+            //}
+            //foreach (var part in dbContext.EmployeeContainers.OfType<PartTimeEmployee>())
+            //{
+            //    Console.WriteLine($"Name:{part.Name} Salary:{part.HourRate * part.CountOfHour}");
+            //}
             #endregion
 
             #region Related Data Loading
@@ -62,13 +62,43 @@ namespace Demo04
             //ThenInclude => Multilevel relationships
             //uses left join if relation is optional
             //uses inner join if relation is mandatory
-            var employee = dbContext.Employees.Include(e=>e.Department)
-                   .FirstOrDefault(e => e.Id == 8);
 
-            Console.WriteLine($"EmpName:{employee?.Name} DepartmentName:{employee?.Department?.DeptName}"); //didn't load department data as it is navigational property 
+
+            //var employee = dbContext.Employees.Include(e=>e.Department)
+            //       .FirstOrDefault(e => e.Id == 8);
+
+            //Console.WriteLine($"EmpName:{employee?.Name} DepartmentName:{employee?.Department?.DeptName}"); //didn't load department data as it is navigational property 
 
             #endregion
+
+            #region Lazy Loading
+
+            //to change default behaviour of ef core=> don't load related data
+            // By using lazy loading it will be loaded per request 
+            //1.Install Microsoft.EntityFrameWorkCore.Proxies
+            //2. Go to onConfiguring method to enable lazyLoading => By using Extension Method (UseLazyLoadingProxies)
+            //3. All models should be public not internal 
+            //4. navigational propeties should be virtual => implicitly override get method
+
+            //var employee = dbContext.Employees
+            //       .FirstOrDefault(e => e.Id == 8);
+
+            //Console.WriteLine($"EmpName:{employee?.Name} DepartmentName:{employee?.Department?.DeptName}"); //didn't load department data as it is navigational property 
+
+
             #endregion
+
+
+            #endregion
+
+            #region Mapping View
+
+            foreach (var item in dbContext.EmployeeDepartments)
+            {
+                Console.WriteLine(item.Name);
+            }
+            #endregion
+
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Demo04.Models
 {
-    internal class Department
+    public class Department
     {
         public int DeptId { get; set; }
         public string DeptName { get; set; }
@@ -16,7 +16,7 @@ namespace Demo04.Models
 
 
 
-        public Employee Manager { get; set; }
+        public virtual Employee Manager { get; set; }
         public int ManagerId { get; set; }
 
         //public ICollection<Employee> Employees { get; set; }
