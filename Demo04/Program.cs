@@ -2,6 +2,7 @@
 using Demo04.InheritanceMapping.Entities;
 using Demo04.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Demo04
 {
@@ -93,10 +94,193 @@ namespace Demo04
 
             #region Mapping View
 
-            foreach (var item in dbContext.EmployeeDepartments)
+            //foreach (var item in dbContext.EmployeeDepartments)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
+            #endregion
+
+            #region Join operators [Deffered Execution]
+
+            #region join [inner Join]
+
+            //query syntax
+            //var result = from e in dbContext.Employees
+            //             join d in dbContext.Departments
+            //             on e.DepartmentId equals d.DeptId 
+            //             select new { d.DeptName,e.Name};
+
+            //fluent syntax
+            //var result =dbContext.Employees.Join(dbContext.Departments,
+            //                            e => e.DepartmentId,
+            //                            d => d.DeptId,
+            //                            (e,d)=> new { e.Name, d.DeptName,e.Salary }
+            //                            ).Where(r=>r.Salary>5000);
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region Group join
+            //groups the elements from the second collection based on key of first collection
+
+            #region Ex01
+
+            //fluent syntax
+
+            //var result = dbContext.Departments.GroupJoin(dbContext.Employees,
+            //     d => d.DeptId, e => e.DepartmentId, (d, e) => new { d.DeptName, e });
+            //foreach (var item in result) //array of annyonmous types  each type has department and  group of employees
+            //{
+            //    Console.WriteLine(item.DeptName);
+            //    foreach (var item1 in item.e)
+            //    {
+            //        Console.WriteLine(item1.Name);
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            //query syntax
+
+
+            //var result = from d in dbContext.Departments
+            //             join e in dbContext.Employees
+            //             on d.DeptId equals e.DepartmentId into groups
+            //             select new
+            //             {
+            //                 d.DeptName,
+            //                 groups
+            //             };
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine(item.DeptName);
+            //    foreach (var employee in item.groups)
+            //    {
+            //        Console.WriteLine(employee.Name);
+            //    }
+            //    Console.WriteLine();
+            //} 
+            #endregion
+
+
+            #region EX02
+
+            //fluent syntax
+
+            //var result = dbContext.Departments.GroupJoin(dbContext.Employees,
+            //     d => d.DeptId, e => e.DepartmentId,
+            //     (d, e) => new { d.DeptName, e })
+            //    .Where(a => a.e.Count() > 3);
+            //foreach (var item in result) //array of anna each department has a group of employees
+            //{
+            //    Console.WriteLine(item.DeptName);
+            //    foreach (var item1 in item.e)
+            //    {
+            //        Console.WriteLine(item1.Name);
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            //query syntax
+
+
+            //var result = from d in dbContext.Departments
+            //             join e in dbContext.Employees
+            //             on d.DeptId equals e.DepartmentId into groups
+            //             select new
+            //             {
+            //                 Department=d,
+            //                 Employees=groups
+            //             } into gr 
+            //             where gr.Employees.Count()>1
+            //             select gr;
+            //foreach (var item in result) //array of anna each department has a group of employees
+            //{
+            //    Console.WriteLine(item.Department.DeptName);
+            //    foreach (var item1 in item.Employees)
+            //    {
+            //        Console.WriteLine(item1.Name);
+            //    }
+            //    Console.WriteLine();
+            //}
+            #endregion
+
+            #region LeftJoin
+            //left join are not supported anymore
+
+            //var result = dbContext.Departments.LeftJoin(dbContext.Employees,
+            //                                d => d.DeptId, e => e.DepartmentId,
+            //                               (d, e) => new { d, e });
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine(item.d.DeptName);
+            //} 
+            #endregion
+
+            #region Group join [Right outer Join]
+
+
+            //fluent syntax
+
+            //var result = dbContext.Employees.GroupJoin(dbContext.Departments,
+            //     e => e.DepartmentId, d => d.DeptId, (d, e) => new { e, d.Name });
+            //foreach (var item in result) //array of departments each department has a group of employees
+            //{
+            //    Console.WriteLine(item.Name);
+            //    foreach (var item1 in item.e)
+            //    {
+            //        Console.WriteLine(item1.DeptName);
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            //query syntax
+
+
+            //var result = from e in dbContext.Employees
+            //             join d in dbContext.Departments
+            //             on e.DepartmentId equals d.DeptId into groups
+            //             select new
+            //             {
+            //                 e,
+            //                 groups
+            //             };
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine(item.e);
+            //    foreach (var department in item.groups)
+            //    {
+            //        Console.WriteLine(department.DeptName);
+            //    }
+            //    Console.WriteLine();
+            //}
+            #endregion
+
+            #endregion
+
+            #region CrossJoin
+
+            //query syntax
+            //var result = from e in dbContext.Employees
+            //             from d in dbContext.Departments
+            //             select new {e.Name,d.DeptName};
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //fluent syntax
+
+            var result = dbContext.Departments.SelectMany(d => dbContext.Employees,
+                                                         (d, e) => new { d.DeptName, e.Name });
+            foreach (var item in result)
             {
-                Console.WriteLine(item.Name);
+                Console.WriteLine(item);
             }
+
+
+            #endregion
             #endregion
 
         }
